@@ -46,29 +46,18 @@ public class DataService
             db.SaveChanges();
         } else { return; }
     }
-    
-
-    //public List<Book> GetBooks() {
-    //    return db.Books.Include(b => b.Author).ToList();
-    //}
-//
-    //public Book GetBook(int id) {
-    //    return db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
-    //}
-//
-    //public List<Author> GetAuthors() {
-    //    return db.Authors.ToList();
-    //}
-//
-    //public Author GetAuthor(int id) {
-    //    return db.Authors.Include(a => a.Books).FirstOrDefault(a => a.AuthorId == id);
-    //}
-//
-    //public string CreateBook(string title, int authorId) {
-    //    Author author = db.Authors.FirstOrDefault(a => a.AuthorId == authorId);
-    //    db.Books.Add(new Book { Title = title, Author = author });
-    //    db.SaveChanges();
-    //    return "Book created";
-    //}
-
 }
+
+
+//Routes til blazor-app:
+//GET:
+//    /api/posts
+//        /api/posts/{id}
+//PUT:
+//    /api/posts/{id}/upvote
+//    /api/posts/{id}/downvote
+//    /api/posts/{postid}/comments/{commentid}/upvote
+//    /api/posts/{postid}/comments/{commentid}/downvote
+//POST:
+//    /api/posts
+//        /api/posts/{id}/comments
