@@ -2,7 +2,12 @@ namespace MiniProjektSA.Models;
 
 public class PostModel
 {
-    
+    public PostModel(string title, string content, DateTime publishDate)
+    {
+        Title = title;
+        Content = content;
+        PublishDate = publishDate;
+    }
     public int Id { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }
@@ -10,5 +15,5 @@ public class PostModel
     
     public int? Votescore { get; set; }
     
-    public UserModel User { get; set; }
+    public int UserId { get; set; }
 }
