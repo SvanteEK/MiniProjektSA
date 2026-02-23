@@ -46,7 +46,49 @@ public class DataService
             db.SaveChanges();
         } else { return; }
     }
+    // get all
+     public List<PostModel> GetPosts()
+     {
+       return db.Posts.ToList();
+     }
+
+     public PostModel GetPost(int id)
+     {
+         return db.Posts.Where(p => p.Id == id).FirstOrDefault();
+     }
+
+     public void Upvote(int id)
+     {
+         var post = db.Posts.Where(p => p.Id == id).FirstOrDefault();
+         if (post.Votescore == null)
+         {
+             post.Votescore = db.Posts.Max(p => p.Id) + 1;
+         }
+         db.SaveChanges();
+     }
+     public void Downvote(int id)
+     {
+         var post = db.Posts.Where(p => p.Id == id).FirstOrDefault();
+         if (post.Votescore == null)
+         {
+             post.Votescore = db.Posts.Max(p => p.Id) -1;
+         }
+         db.SaveChanges();
+     }
+
+     public void CreatePost(PostModel post)
+     {
+         db.Posts.Add(post);
+         db.SaveChanges();
+     }
+
+     public void CreatePostComment(PostModel comment)
+     {
+         db.Posts.Add(comment);
+         db.SaveChanges();
+     }
 }
+
 
 
 //Routes til blazor-app:

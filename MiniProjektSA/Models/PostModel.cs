@@ -15,5 +15,7 @@ public class PostModel
     
     public int? Votescore { get; set; }
     
+    public int? MotherPostId { get; set; }
+    
     public int UserId { get; set; }
 }
