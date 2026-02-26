@@ -78,7 +78,7 @@ public class DataService
      
      public void UpvoteComment(int postid, int commentid)
      {
-         var post = db.Posts.Where(p => p.Id == postid).FirstOrDefault();
+         var post = db.Posts.Where(p => p.Id == commentid && p.MotherPostId == postid).FirstOrDefault();
          var comment = db.Posts.Where(p => p.Id == commentid).FirstOrDefault();
          if (comment.Votescore == null)
          {
@@ -88,7 +88,7 @@ public class DataService
      
      public void DownvoteComment(int postid, int commentid)
      {
-         var post = db.Posts.Where(p => p.Id == postid).FirstOrDefault();
+         var post = db.Posts.Where(p => p.Id == commentid && p.MotherPostId == postid).FirstOrDefault();
          var comment = db.Posts.Where(p => p.Id == commentid).FirstOrDefault();
          if (comment.Votescore == null)
          {
