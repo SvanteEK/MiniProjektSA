@@ -56,7 +56,7 @@ public class PostController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("{postid}/comments/{commentid}/downvote}")]
+    [HttpPut("{postid}/comments/{commentid}/downvote")]
     public async Task<IActionResult> DownvoteComment(int postid, int commentid)
     {
         _service.DownvoteComment(postid, commentid);
