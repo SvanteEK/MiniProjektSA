@@ -7,6 +7,9 @@ public class PostModel
         Title = title;
         Content = content;
         PublishDate = publishDate;
+        Votescore = 0;
+        MotherPostId = null;
+        UserId = 1;
     }
     public int Id { get; set; }
     public string Title { get; set; }

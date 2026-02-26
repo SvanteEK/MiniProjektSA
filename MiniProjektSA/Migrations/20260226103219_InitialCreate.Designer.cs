@@ -11,8 +11,8 @@ using MiniProjektSA.Data;
 namespace MiniProjektSA.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20260226101700_init")]
-    partial class init
+    [Migration("20260226103219_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace MiniProjektSA.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Votescore")

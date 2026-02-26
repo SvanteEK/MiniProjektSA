@@ -1,0 +1,34 @@
+@page "/posts"
+@using MiniProjektSA.Models
+@using MiniProjektSABlazor.Services
+@inject PostService PostService
+
+<h3>Posts</h3>
+
+@if (allPosts == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="post-list">
+        @foreach (var post in allPosts)
+        {
+            <div class="post-card">
+                <h4>@post.Title</h4>
+                <p>@post.Content</p>
+                <p>@post.PublishDate</p>
+                <p1>@post.Votescore</p1>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<PostModel> allPosts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        allPosts = await PostService.GetAll();
+    }
+}

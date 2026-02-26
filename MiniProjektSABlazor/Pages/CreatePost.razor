@@ -1,33 +1,32 @@
 @page "/createpost"
 @using MiniProjektSA.Models
-@using MiniProjektSABlazor.Services
+@using Services
 @inject PostService PostService
-@inject NavigationManager NavigationManager;
+@inject NavigationManager NavigationManager
 
 <div>
     <br/>
     <h3>Create a new Post</h3>
-    <input placeholder="Title" type="input" id="postTitle" @bind-value="newPost.Title"/>
-    <input placeholder="Content" type="input" id="postContent" @bind-value="newPost.Content"/>
-    <button id="createPostButton" type="button" @onclick="CreateNewPost">Create Post</button>
+    <input placeholder="Title" @bind="newPost.Title" />
+    <input placeholder="Content" @bind="newPost.Content" />
+    <button @onclick="CreateNewPost">Create Post</button>
 </div>
 
 @code {
     private PostModel newPost = new("", "", DateTime.Now);
-    
-    private async void CreateNewPost()
-    {
-    Console.WriteLine("Creating new post");
-    if (newPost.Title == null || newPost.Content == null)
-    { 
-        return;
-    }
-    Console.WriteLine(newPost.Title + " " + newPost.Content);
-    // TODO: Provide list of users from dropdown, or maybe just convert
-    // from username to UserId
 
-    await PostService.CreatePost(newPost);
-    StateHasChanged();
-    NavigationManager.NavigateTo("/", true);
-}
+    private async Task CreateNewPost()
+    {
+        Console.WriteLine("Creating new post");
+
+        if (string.IsNullOrWhiteSpace(newPost.Title) ||
+            string.IsNullOrWhiteSpace(newPost.Content))
+        {
+            return;
+        }
+
+        await PostService.CreatePost(newPost);
+
+        newPost = new("", "", DateTime.Now);
+    }
 }
