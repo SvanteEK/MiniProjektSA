@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiniProjektSA.Controllers;
 using MiniProjektSA.Data;
 using MiniProjektSA.Services;
 
@@ -23,6 +24,9 @@ builder.Services.AddDbContext<MainContext>(options =>
 
 // Services
 builder.Services.AddScoped<DataService>();
+builder.Services.AddControllers();
+builder.Services.AddScoped<PostController>();
+
 
 var app = builder.Build();
 
@@ -37,7 +41,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors(AllowSomeStuff);
-
-app.MapGet("/", () => "Hello World!");
+app.MapControllers();
+app.MapGet("/", () => "BACKEND KØRE!");
 
 app.Run();
