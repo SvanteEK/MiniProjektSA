@@ -75,7 +75,26 @@ public class DataService
          }
          db.SaveChanges();
      }
-
+     
+     public void UpvoteComment(int postid, int commentid)
+     {
+         var post = db.Posts.Where(p => p.Id == postid).FirstOrDefault();
+         var comment = db.Posts.Where(p => p.Id == commentid).FirstOrDefault();
+         if (comment.Votescore == null)
+         {
+             comment.Votescore = db.Posts.Max(p => p.Id) + 1;
+         }
+     }
+     
+     public void DownvoteComment(int postid, int commentid)
+     {
+         var post = db.Posts.Where(p => p.Id == postid).FirstOrDefault();
+         var comment = db.Posts.Where(p => p.Id == commentid).FirstOrDefault();
+         if (comment.Votescore == null)
+         {
+             comment.Votescore = db.Posts.Max(p => p.Id) + -1;
+         }
+     }
      public void CreatePost(PostModel post)
      {
          db.Posts.Add(post);

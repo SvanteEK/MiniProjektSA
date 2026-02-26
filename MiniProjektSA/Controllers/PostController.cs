@@ -35,19 +35,34 @@ public class PostController : ControllerBase
         } return Ok(post);
     }
     
-    [HttpPut ("{id}/upvote")] // +1 på votescore
+    [HttpPut ("{id}/upvote")] // +1 på votescore post
     public async Task<IActionResult> Upvote(int id)
     {
         _service.Upvote(id);
         return Ok();
     }
     
-    [HttpPut ("{id}/downvote")] // -1 på votescore
+    [HttpPut ("{id}/downvote")] // -1 på votescore post
     public async Task<IActionResult> Downvote(int id)
     {
         _service.Downvote(id);
         return Ok();
     }
+
+    [HttpPut ("{postid}/comments/{commentid}/upvote")]
+    public async Task<IActionResult> UpvoteComment(int postid, int commentid)
+    {
+        _service.UpvoteComment(postid, commentid);
+        return Ok();
+    }
+
+    [HttpPut("{postid}/comments/{commentid}/downvote}")]
+    public async Task<IActionResult> DownvoteComment(int postid, int commentid)
+    {
+        _service.DownvoteComment(postid, commentid);
+        return Ok();
+    }
+        
     
     [HttpPost] // anvendes til at oprette post
     public async Task<IActionResult> CreatePost(PostModel post)
