@@ -62,7 +62,11 @@ public class DataService
          var post = db.Posts.Where(p => p.Id == id).FirstOrDefault();
          if (post.Votescore == null)
          {
-             post.Votescore = db.Posts.Max(p => p.Id) + 1;
+             post.Votescore = 1;
+         }
+         else
+         {
+             post.Votescore += 1;
          }
          db.SaveChanges();
      }
@@ -71,7 +75,11 @@ public class DataService
          var post = db.Posts.Where(p => p.Id == id).FirstOrDefault();
          if (post.Votescore == null)
          {
-             post.Votescore = db.Posts.Max(p => p.Id) -1;
+             post.Votescore = -1;
+         }
+         else
+         {
+             post.Votescore -= 1;
          }
          db.SaveChanges();
      }
@@ -82,7 +90,11 @@ public class DataService
          var comment = db.Posts.Where(p => p.Id == commentid).FirstOrDefault();
          if (comment.Votescore == null)
          {
-             comment.Votescore = db.Posts.Max(p => p.Id) + 1;
+             comment.Votescore = 1;
+         }
+         else
+         {
+             comment.Votescore += 1;
          }
      }
      
@@ -92,7 +104,11 @@ public class DataService
          var comment = db.Posts.Where(p => p.Id == commentid).FirstOrDefault();
          if (comment.Votescore == null)
          {
-             comment.Votescore = db.Posts.Max(p => p.Id) + -1;
+             comment.Votescore = -1;
+         }
+         else
+         {
+             comment.Votescore -= 1;
          }
      }
      public void CreatePost(PostModel post)
