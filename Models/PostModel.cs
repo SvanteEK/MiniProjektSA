@@ -17,5 +17,5 @@ public class PostModel
     
     public int? MotherPostId { get; set; }
     
-    public int UserId { get; set; }
+    public int? UserId { get; set; }
 }

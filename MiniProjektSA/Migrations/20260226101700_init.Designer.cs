@@ -11,8 +11,8 @@ using MiniProjektSA.Data;
 namespace MiniProjektSA.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20260226075314_UpdateModel")]
-    partial class UpdateModel
+    [Migration("20260226101700_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

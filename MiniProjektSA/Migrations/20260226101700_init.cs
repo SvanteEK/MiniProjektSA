@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MiniProjektSA.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,6 +21,7 @@ namespace MiniProjektSA.Migrations
                     Content = table.Column<string>(type: "TEXT", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Votescore = table.Column<int>(type: "INTEGER", nullable: true),
+                    MotherPostId = table.Column<int>(type: "INTEGER", nullable: true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

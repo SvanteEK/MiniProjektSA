@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniProjektSA", "MiniProjek
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniProjektSABlazor", "MiniProjektSABlazor\MiniProjektSABlazor.csproj", "{2309BA7F-8B72-4B9A-A326-1A863BF37AAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{337C0C80-072B-46C0-AAC0-C5AA4A13EAE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{2309BA7F-8B72-4B9A-A326-1A863BF37AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2309BA7F-8B72-4B9A-A326-1A863BF37AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2309BA7F-8B72-4B9A-A326-1A863BF37AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337C0C80-072B-46C0-AAC0-C5AA4A13EAE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337C0C80-072B-46C0-AAC0-C5AA4A13EAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337C0C80-072B-46C0-AAC0-C5AA4A13EAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337C0C80-072B-46C0-AAC0-C5AA4A13EAE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
