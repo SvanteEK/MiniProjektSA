@@ -20,6 +20,22 @@ else
         <p>Votes: @post.Votescore</p>
         <p>Publiseret: @post.PublishDate.ToLocalTime()</p>
     </div>
+    
+    <div class="post-list">
+        @foreach (var c in Comments)
+        {
+            <div class="card-body">
+                <h4 class="card-title">@post.Votescore</h4>
+                <h5 class="card-title">@post.Title</h5>
+                
+                <p>@post.Content</p>
+                <p>@post.PublishDate.ToLocalTime()</p>
+                    
+                <button @onclick='() => Nav.NavigateTo($"/post/{c.Id}")'>Åben comment</button>
+                
+            </div>
+        }
+    </div>
 }
 
 @code {
@@ -28,15 +44,12 @@ else
 
     private PostModel? post;
 
+    private List<PostModel> Comments = new();
+
     protected override async Task OnParametersSetAsync()
     {
-  
-        post = await PostService.Get(Postid);  
-        
-       
-        if (post == null)
-        {
-            
-        }
+        post = await PostService.Get(Postid);
+        var allPosts = await PostService.GetAll();
+        Comments = allPosts.Where(p => p.MotherPostId == Postid).ToList();
     }
 }
