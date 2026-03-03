@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
@@ -17,9 +18,7 @@ public class DataService
     
     public void SeedData()
     {
-        
         db.Database.Migrate();
-
         // Indsæt nogle mock users
         if (db.Users.FirstOrDefault() == null)
         {
@@ -44,10 +43,21 @@ public class DataService
                     $"Testpost {i}",
                     $"Test content {i}",
                     DateTime.Now,
+                    null,
                     null)
                 {
                     UserId = user.Id // sætter bare userid til den første bruger i db'en
                 });
+                for (int p = 0; p < 5; p++)
+                {
+                    db.Posts.Add(new PostModel(
+                        $"Testpost {i} - {p}",
+                        $"Test content {i} - {p}",
+                        DateTime.Now,
+                        null,
+                        i));
+                        
+                }
             }
             db.SaveChanges();
         } else { return; }

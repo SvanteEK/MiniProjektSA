@@ -13,7 +13,7 @@
 </div>
 
 @code {
-    private PostModel newPost = new("", "", DateTime.Now, null);
+    private PostModel newPost = new("", "", DateTime.Now, null, null);
 
     private async Task CreateNewPost()
     {
@@ -27,6 +27,6 @@
 
         await PostService.CreatePost(newPost);
 
-        newPost = new("", "", DateTime.Now, null);
+        newPost = new("", "", DateTime.Now, null, null);
     }
 }

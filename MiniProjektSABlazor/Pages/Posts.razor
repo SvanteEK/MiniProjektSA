@@ -12,13 +12,16 @@
 else
 {
     <div class="post-list">
-        @foreach (var post in allPosts)
+        @foreach (var post in allPosts.Where(p => p.MotherPostId == null))
         {
-            <div class="post-card">
-                <h4>@post.Title</h4>
-                <p>@post.Content</p>
-                <p>@post.PublishDate</p>
-                <p1>@post.Votescore</p1>
+            <div class="card-body">
+                <h4 class="card-title">@post.Votescore</h4>
+                <h5 class="card-title">@post.Title</h5>
+
+                <p class="card-text">
+                    <p>@post.Content</p>
+                    <p>@post.PublishDate.ToLocalTime()</p>
+                </p>
             </div>
         }
     </div>
