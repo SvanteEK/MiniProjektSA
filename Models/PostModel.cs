@@ -2,13 +2,13 @@ namespace MiniProjektSA.Models;
 
 public class PostModel
 {
-    public PostModel(string title, string content, DateTime publishDate)
+    public PostModel(string title, string content, DateTime publishDate, int? motherPosId)
     {
         Title = title;
         Content = content;
         PublishDate = publishDate;
         Votescore = 0;
-        MotherPostId = null;
+        MotherPostId = motherPosId;
         UserId = 1;
     }
     public int Id { get; set; }

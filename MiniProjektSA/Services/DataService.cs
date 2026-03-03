@@ -20,29 +20,35 @@ public class DataService
         
         db.Database.Migrate();
 
-        // USERS
+        // Indsæt nogle mock users
         if (db.Users.FirstOrDefault() == null)
         {
             var user1 = new UserModel("John");
             var user2 = new UserModel("Jane");
+            var user3 = new UserModel("Bob");
+            var user4 = new UserModel("Alice");
+            var user5 = new UserModel("Eve");
 
-            db.Users.AddRange(user1, user2);
+            db.Users.AddRange(user1, user2, user3, user4, user5);
             db.SaveChanges();
         } else { return; }
 
         // POSTS
-        if  (db.Posts.FirstOrDefault() == null)
+        if  (db.Posts.FirstOrDefault() == null) // hvis ingen posts i db, insæt posts
         {
             var user = db.Users.First();
 
-            db.Posts.Add(new PostModel(
-                "Post1",
-                "Content1",
-                DateTime.Now)
+            for (int i = 0; i < 5; i++) // for loop til at indsætte 5 posts
             {
-                UserId = user.Id
-            });
-
+                db.Posts.Add(new PostModel(
+                    $"Testpost {i}",
+                    $"Test content {i}",
+                    DateTime.Now,
+                    null)
+                {
+                    UserId = user.Id // sætter bare userid til den første bruger i db'en
+                });
+            }
             db.SaveChanges();
         } else { return; }
     }
@@ -95,6 +101,7 @@ public class DataService
          {
              comment.Votescore += 1;
          }
+         db.SaveChanges();
      }
      
      public void DownvoteComment(int postid, int commentid)
@@ -108,6 +115,7 @@ public class DataService
          {
              comment.Votescore -= 1;
          }
+         db.SaveChanges();
      }
      public void CreatePost(PostModel post)
      {
