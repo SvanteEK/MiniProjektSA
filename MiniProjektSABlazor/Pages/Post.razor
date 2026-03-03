@@ -1,0 +1,42 @@
+@page "/Post/{postid:int}"
+
+@using MiniProjektSA.Models
+@using Services
+
+@inject NavigationManager Nav
+@inject PostService PostService
+
+<h3>Post #@Postid</h3>
+
+@if (post == null)
+{
+    <p>Indlæser...</p>
+}
+else
+{
+    <div>
+        <h4>@post.Title</h4>
+        <p>@post.Content</p>
+        <p>Votes: @post.Votescore</p>
+        <p>Publiseret: @post.PublishDate.ToLocalTime()</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Postid { get; set; } 
+
+    private PostModel? post;
+
+    protected override async Task OnParametersSetAsync()
+    {
+  
+        post = await PostService.Get(Postid);  
+        
+       
+        if (post == null)
+        {
+            
+        }
+    }
+}

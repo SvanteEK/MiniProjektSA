@@ -11,7 +11,7 @@ using MiniProjektSA.Data;
 namespace MiniProjektSA.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20260303110530_init")]
+    [Migration("20260303111751_init")]
     partial class init
     {
         /// <inheritdoc />
