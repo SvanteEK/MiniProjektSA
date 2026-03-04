@@ -6,8 +6,6 @@
 @inject NavigationManager Nav
 @inject PostService PostService
 
-<h3>Post #@Postid</h3>
-
 @if (post == null)
 {
     <p>Indlæser...</p>
@@ -19,14 +17,14 @@ else
         <div class="vote-column">
 
             <button class="vote-btn up"
-                    @onclick="() => Vote(post.Id, true)">
+                    @onclick="() => VotePost(post.Id, true)">
                 ▲
             </button>
 
             <span class="vote-score">@post.Votescore</span>
 
             <button class="vote-btn down"
-                    @onclick="() => Vote(post.Id, false)">
+                    @onclick="() => VotePost(post.Id, false)">
                 ▼
             </button>
 
@@ -50,14 +48,14 @@ else
                 <div class="vote-column">
 
                     <button class="vote-btn up"
-                            @onclick="() => Vote(c.Id, true)">
+                            @onclick="() => VoteComment(Postid, c.Id, true)">
                         ▲
                     </button>
 
                     <span class="vote-score">@c.Votescore</span>
 
                     <button class="vote-btn down"
-                            @onclick="() => Vote(c.Id, false)">
+                            @onclick="() => VoteComment(Postid, c.Id, true)">
                         ▼
                     </button>
 
@@ -135,16 +133,30 @@ else
         newPost = new("", "", DateTime.Now, null, Postid);
     }
 
-    private async Task Vote(int id, bool UpDown)
+    private async Task VoteComment(int PostId, int CommentId, bool UpDown)
     {
         if (UpDown)
         {
-            await PostService.Upvote(id);
+            await PostService.UpvoteComment(Postid, CommentId);
             await OnParametersSetAsync();
         }
         else if (UpDown == false)
         {
-            await PostService.Downvote(id);
+            await PostService.DownvoteComment(PostId, CommentId);
+            await OnParametersSetAsync();
+        }
+    }
+    
+    private async Task VotePost(int PostId, bool UpDown)
+    {
+        if (UpDown)
+        {
+            await PostService.Upvote(Postid);
+            await OnParametersSetAsync();
+        }
+        else if (UpDown == false)
+        {
+            await PostService.Downvote(PostId);
             await OnParametersSetAsync();
         }
     }

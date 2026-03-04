@@ -4,7 +4,7 @@
 @inject NavigationManager Nav
 @inject PostService PostService
 
-<h3>Posts</h3>
+<h3>Opslag</h3>
 
 @if (allPosts == null)
 {
@@ -15,15 +15,29 @@ else
     <div class="post-list">
         @foreach (var post in allPosts.Where(p => p.MotherPostId == null))
         {
+            var commentCount = allPosts.Count(p => p.MotherPostId == post.Id);
+
             if (post.Votescore == null)
             {
                 post.Votescore = 0;
             }
 
             <div class="post-card">
-            
+        
                 <div class="vote-column">
+
+                    <button class="vote-btn up"
+                            @onclick="() => Vote(post.Id, true)">
+                        ▲
+                    </button>
+
                     <span class="vote-score">@post.Votescore</span>
+
+                    <button class="vote-btn down"
+                            @onclick="() => Vote(post.Id, false)">
+                        ▼
+                    </button>
+
                 </div>
 
                 <div class="post-content">
@@ -38,7 +52,7 @@ else
                     <div class="post-actions">
                         <button class="btn-primary"
                                 @onclick='() => Nav.NavigateTo($"/post/{post.Id}")'>
-                            Åben opslag
+                            Åben opslag (@commentCount kommentarer)
                         </button>
                     </div>
                 </div>
@@ -53,6 +67,21 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        
         allPosts = await PostService.GetAll();
+    }
+    
+    private async Task Vote(int id, bool UpDown)
+    {
+        if (UpDown)
+        {
+            await PostService.Upvote(id);
+            await OnInitializedAsync();
+        }
+        else if (UpDown == false)
+        {
+            await PostService.Downvote(id);
+            await OnInitializedAsync();
+        }
     }
 }
