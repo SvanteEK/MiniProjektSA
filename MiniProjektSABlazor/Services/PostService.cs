@@ -27,12 +27,12 @@ public class PostService
 
    public async Task Upvote(int id)
    {
-      await _httpClient.PutAsync("api/posts/{id}/upvote", null);
+      await _httpClient.PutAsync($"api/posts/{id}/upvote", null);
    }
 
    public async Task Downvote(int id)
    {
-      await _httpClient.PutAsync("api/posts/{id}/downvote", null);
+      await _httpClient.PutAsync($"api/posts/{id}/downvote", null);
    }
 
    public async Task UpvoteComment(int PostId, int CommentId)

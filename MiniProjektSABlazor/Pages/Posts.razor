@@ -8,22 +8,41 @@
 
 @if (allPosts == null)
 {
-    <p>Loading...</p>
+    <p>Indlæser :) ...</p>
 }
 else
 {
     <div class="post-list">
         @foreach (var post in allPosts.Where(p => p.MotherPostId == null))
         {
-            <div class="card-body">
-                <h4 class="card-title">@post.Votescore</h4>
-                <h5 class="card-title">@post.Title</h5>
-                
-                    <p>@post.Content</p>
-                    <p>@post.PublishDate.ToLocalTime()</p>
-                    
-                    <button @onclick='() => Nav.NavigateTo($"/post/{post.Id}")'>Åben post</button>
-                
+            if (post.Votescore == null)
+            {
+                post.Votescore = 0;
+            }
+
+            <div class="post-card">
+            
+                <div class="vote-column">
+                    <span class="vote-score">@post.Votescore</span>
+                </div>
+
+                <div class="post-content">
+                    <h3 class="post-title">@post.Title</h3>
+
+                    <p class="post-text">@post.Content</p>
+
+                    <div class="post-meta">
+                        @post.PublishDate.ToLocalTime()
+                    </div>
+
+                    <div class="post-actions">
+                        <button class="btn-primary"
+                                @onclick='() => Nav.NavigateTo($"/post/{post.Id}")'>
+                            Åben opslag
+                        </button>
+                    </div>
+                </div>
+
             </div>
         }
     </div>

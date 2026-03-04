@@ -1,7 +1,171 @@
-.card-body {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 3px solid #000000;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+/* ============================= */
+/* BASE */
+/* ============================= */
+
+body {
+    margin: 0;
+    background: #dae0e6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1c1c1c;
+}
+
+h3 {
+    margin-top: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* ============================= */
+/* LAYOUT */
+/* ============================= */
+
+.post-list {
+    max-width: 760px;
+    margin: 30px auto;
+    padding: 0 16px;
+}
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.post-card {
+    display: flex;
+    background: #ffffff;
+    border: 1px solid #e3e6e8;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    transition: all 0.18s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ============================= */
+/* VOTE COLUMN */
+/* ============================= */
+
+.vote-column {
+    width: 64px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #edf0f2;
+}
+
+.vote-score {
+    font-weight: 700;
+    font-size: 15px;
+    color: #6b6f73;
+}
+
+/* ============================= */
+/* CONTENT */
+/* ============================= */
+
+.post-content {
+    flex: 1;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-title {
+    margin: 0 0 8px 0;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.post-text {
+    margin: 0 0 12px 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #2d2f31;
+}
+
+.post-meta {
+    font-size: 12px;
+    color: #878a8c;
+    margin-bottom: 14px;
+}
+
+/* ============================= */
+/* ACTIONS */
+/* ============================= */
+
+.post-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary {
+    padding: 7px 16px;
+    border-radius: 22px;
+    border: none;
+    background: #ff4500;   /* Reddit orange */
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+    background: #e03d00;
+    transform: scale(1.03);
+}
+
+/* ============================= */
+/* COMMENT STYLE */
+/* ============================= */
+
+.comment-card {
+    margin-left: 60px;
+    border-left: 3px solid #ff4500;
+}
+
+/* ============================= */
+/* FORM */
+/* ============================= */
+
+.comment-form {
+    max-width: 760px;
+    margin: 30px auto 60px auto;
+    background: #ffffff;
+    border: 1px solid #e3e6e8;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.comment-form h3 {
+    margin: 0 0 10px 0;
+    text-align: left;
+}
+
+.input-field {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccd0d4;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border: 1px solid #ff4500;
+    box-shadow: 0 0 0 3px rgba(255,69,0,0.15);
+}
+
+textarea.input-field {
+    resize: vertical;
+    min-height: 100px;
 }

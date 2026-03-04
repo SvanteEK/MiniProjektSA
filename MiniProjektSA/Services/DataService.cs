@@ -37,30 +37,39 @@ public class DataService
         {
             var user = db.Users.First();
 
-            for (int i = 0; i < 5; i++) // for loop til at indsætte 5 posts
+            for (int i = 0; i < 5; i++)
             {
-                db.Posts.Add(new PostModel(
+                var post = new PostModel(
                     $"Testpost {i}",
                     $"Test content {i}",
                     DateTime.Now,
                     null,
                     null)
                 {
-                    UserId = user.Id // sætter bare userid til den første bruger i db'en
-                });
+                    UserId = user.Id
+                };
+
+                db.Posts.Add(post);
+                db.SaveChanges(); // <-- vigtigt! Nu får post.Id en værdi
+
                 for (int p = 0; p < 5; p++)
                 {
-                    db.Posts.Add(new PostModel(
-                        $"Testpost {i} - {p}",
-                        $"Test content {i} - {p}",
-                        DateTime.Now,
-                        null,
-                        i));
-                        
+                    var comment = new PostModel(
+                            $"Kommentar {p}",
+                            $"Kommentar content {p}",
+                            DateTime.Now,
+                            null,
+                            post.Id) // <-- brug RIGTIGT ID
+                        {
+                            UserId = user.Id
+                        };
+
+                    db.Posts.Add(comment);
                 }
+
+                db.SaveChanges();
             }
-            db.SaveChanges();
-        } else { return; }
+        }
     }
     // get all
      public List<PostModel> GetPosts()

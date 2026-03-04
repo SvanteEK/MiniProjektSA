@@ -14,27 +14,91 @@
 }
 else
 {
-    <div>
-        <h4>@post.Title</h4>
-        <p>@post.Content</p>
-        <p>Votes: @post.Votescore</p>
-        <p>Publiseret: @post.PublishDate.ToLocalTime()</p>
+    <!-- HOVEDOPSLAG -->
+    <div class="post-card">
+        <div class="vote-column">
+
+            <button class="vote-btn up"
+                    @onclick="() => Vote(post.Id, true)">
+                ▲
+            </button>
+
+            <span class="vote-score">@post.Votescore</span>
+
+            <button class="vote-btn down"
+                    @onclick="() => Vote(post.Id, false)">
+                ▼
+            </button>
+
+        </div>
+
+        <div class="post-content">
+            <h3 class="post-title">@post.Title</h3>
+            <p class="post-text">@post.Content</p>
+            <div class="post-meta">
+                Publiseret: @post.PublishDate.ToLocalTime()
+            </div>
+        </div>
     </div>
-    
+
+
+    <!-- KOMMENTARER -->
     <div class="post-list">
         @foreach (var c in Comments)
         {
-            <div class="card-body">
-                <h4 class="card-title">@post.Votescore</h4>
-                <h5 class="card-title">@post.Title</h5>
-                
-                <p>@post.Content</p>
-                <p>@post.PublishDate.ToLocalTime()</p>
-                    
-                <button @onclick='() => Nav.NavigateTo($"/post/{c.Id}")'>Åben comment</button>
-                
+            <div class="post-card comment-card">
+                <div class="vote-column">
+
+                    <button class="vote-btn up"
+                            @onclick="() => Vote(c.Id, true)">
+                        ▲
+                    </button>
+
+                    <span class="vote-score">@c.Votescore</span>
+
+                    <button class="vote-btn down"
+                            @onclick="() => Vote(c.Id, false)">
+                        ▼
+                    </button>
+
+                </div>
+                <div class="post-content">
+                    <h4 class="post-title">@c.Title</h4>
+                    <p class="post-text">@c.Content</p>
+                    <div class="post-meta">
+                        @c.PublishDate.ToLocalTime()
+                    </div>
+                    <div class="post-actions">
+                        <button class="btn-primary"
+                                @onclick='() => Nav.NavigateTo($"/post/{c.Id}")'>
+                            Åben kommentar
+                        </button>
+                    </div>
+                </div>
             </div>
         }
+    </div>
+
+
+    <!-- OPRET KOMMENTAR -->
+    <div class="comment-form">
+
+        <h3>Tilføj kommentar</h3>
+
+        <input class="input-field"
+               placeholder="Title"
+               @bind="newPost.Title" />
+
+        <textarea class="input-field"
+                  placeholder="Content"
+                  @bind="newPost.Content">
+        </textarea>
+
+        <button class="btn-primary"
+                @onclick="CreateNewPost">
+            Opret
+        </button>
+
     </div>
 }
 
@@ -46,10 +110,42 @@ else
 
     private List<PostModel> Comments = new();
 
+    private PostModel newPost = new("", "", DateTime.Now, null, null);
+
     protected override async Task OnParametersSetAsync()
     {
         post = await PostService.Get(Postid);
         var allPosts = await PostService.GetAll();
         Comments = allPosts.Where(p => p.MotherPostId == Postid).ToList();
+    }
+    
+    private async Task CreateNewPost()
+    {
+        Console.WriteLine("Creating new post");
+
+        if (string.IsNullOrWhiteSpace(newPost.Title) ||
+            string.IsNullOrWhiteSpace(newPost.Content))
+        {
+            return;
+        }
+
+        newPost.MotherPostId = Postid; // sikre at kommentaren tilhøre selve postet
+        await PostService.CreatePost(newPost);
+        await OnParametersSetAsync();
+        newPost = new("", "", DateTime.Now, null, Postid);
+    }
+
+    private async Task Vote(int id, bool UpDown)
+    {
+        if (UpDown)
+        {
+            await PostService.Upvote(id);
+            await OnParametersSetAsync();
+        }
+        else if (UpDown == false)
+        {
+            await PostService.Downvote(id);
+            await OnParametersSetAsync();
+        }
     }
 }
