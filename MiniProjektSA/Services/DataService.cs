@@ -148,17 +148,3 @@ public class DataService
          db.SaveChanges();
      }
 }
-
-
-//Routes til blazor-app:
-//GET:
-//    /api/posts
-//        /api/posts/{id}
-//PUT:
-//    /api/posts/{id}/upvote
-//    /api/posts/{id}/downvote
-//    /api/posts/{postid}/comments/{commentid}/upvote
-//    /api/posts/{postid}/comments/{commentid}/downvote
-//POST:
-//    /api/posts
-//        /api/posts/{id}/comments

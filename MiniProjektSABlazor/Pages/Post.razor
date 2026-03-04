@@ -85,15 +85,15 @@ else
 
         <input class="input-field"
                placeholder="Title"
-               @bind="newPost.Title" />
+               @bind="newComment.Title" />
 
         <textarea class="input-field"
                   placeholder="Content"
-                  @bind="newPost.Content">
+                  @bind="newComment.Content">
         </textarea>
 
         <button class="btn-primary"
-                @onclick="CreateNewPost">
+                @onclick="CreateNewComment">
             Opret
         </button>
 
@@ -108,7 +108,7 @@ else
 
     private List<PostModel> Comments = new();
 
-    private PostModel newPost = new("", "", DateTime.Now, null, null);
+    private PostModel newComment = new("", "", DateTime.Now, null, null);
 
     protected override async Task OnParametersSetAsync()
     {
@@ -117,20 +117,20 @@ else
         Comments = allPosts.Where(p => p.MotherPostId == Postid).ToList();
     }
     
-    private async Task CreateNewPost()
+    private async Task CreateNewComment()
     {
         Console.WriteLine("Creating new post");
 
-        if (string.IsNullOrWhiteSpace(newPost.Title) ||
-            string.IsNullOrWhiteSpace(newPost.Content))
+        if (string.IsNullOrWhiteSpace(newComment.Title) ||
+            string.IsNullOrWhiteSpace(newComment.Content))
         {
             return;
         }
 
-        newPost.MotherPostId = Postid; // sikre at kommentaren tilhøre selve postet
-        await PostService.CreatePost(newPost);
+        newComment.MotherPostId = Postid; // sikre at kommentaren tilhøre selve postet
+        await PostService.CreateComment(newComment);
         await OnParametersSetAsync();
-        newPost = new("", "", DateTime.Now, null, Postid);
+        newComment = new("", "", DateTime.Now, null, Postid);
     }
 
     private async Task VoteComment(int PostId, int CommentId, bool UpDown)
