@@ -128,7 +128,7 @@ else
         }
 
         newComment.MotherPostId = Postid; // sikre at kommentaren tilhøre selve postet
-        await PostService.CreateComment(newComment);
+        await PostService.CreateComment(Postid, newComment);
         await OnParametersSetAsync();
         newComment = new("", "", DateTime.Now, null, Postid);
     }

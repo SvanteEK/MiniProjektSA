@@ -50,8 +50,8 @@ public class PostService
       await _httpClient.PostAsJsonAsync("api/posts", post);
    }
 
-   public async Task CreateComment(PostModel post)
+   public async Task CreateComment(int PostId,PostModel post)
    {
-      await _httpClient.PostAsJsonAsync("api/posts/{PostId}/comments", post);
+      await _httpClient.PostAsJsonAsync($"api/posts/{PostId}/comments", post);
    }
 }
